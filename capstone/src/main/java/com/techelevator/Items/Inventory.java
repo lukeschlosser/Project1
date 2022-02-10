@@ -1,7 +1,8 @@
-package Items;
+package com.techelevator.Items;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class Inventory {
     private String name;
     private int stockAmount;
     private String slotLocation;
+    private Item item;
 
     //constructor
     public Inventory(){}
@@ -28,22 +30,22 @@ public class Inventory {
         return slotLocation;
     }
 
-    public List<String[]> getItemList(){
-
+    public List<Item> getItemList(){
         String path = "vendingmachine.csv";
         File itemFile = new File(path);
-        String [] itemList = new String[]{};
-        List<String[]> stockList = new ArrayList();
+        String [] itemData = new String[]{};
+
+        List<Item> stockList = new ArrayList();
         try(Scanner input = new Scanner(itemFile)){
             while(input.hasNext()){
                 String lineOfText = input.nextLine();
-                itemList = lineOfText.split("\\|");
-                stockList.add(itemList);
+                itemData = lineOfText.split("\\|");
+                item = new Item(itemData[0],itemData[1], new BigDecimal(itemData[2]),itemData[3]);
+                stockList.add(item);
             }
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         return stockList;
     }
 

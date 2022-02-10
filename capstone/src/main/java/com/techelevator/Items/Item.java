@@ -1,15 +1,23 @@
-package Items;
+package com.techelevator.Items;
+
+import java.math.BigDecimal;
 
 public class Item {
 
+    private String slotLocation;
     private String name;
     private int price;
     private String type;
-    private String slotLocation;
 
     //constructor
     public Item(){}
 
+    public Item(String slotLocation, String name, BigDecimal price, String type) {
+        this.slotLocation = slotLocation;
+        this.name = name;
+        this.price = price.intValue();
+        this.type = type;
+    }
 
     //getters
     public String getName() {
