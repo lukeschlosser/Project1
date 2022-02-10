@@ -16,4 +16,7 @@ public class VendingMachine {
 
    }
 
+   public void displayItems() {
+      inventory.getItemList();
+   }
 }
