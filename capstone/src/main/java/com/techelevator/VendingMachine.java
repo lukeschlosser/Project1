@@ -12,11 +12,12 @@ public class VendingMachine {
 //The vending machine is automatically restocked each time the application runs.
    private Inventory inventory;
    private List<Item> itemList;
-   private BigDecimal balance;
+   private Double balance;
 
    public VendingMachine(){
       this.inventory = new Inventory();
       this.itemList = this.inventory.getItemList();
+      balance = 0.00;
    }
 /*When the customer selects "(1) Display Vending Machine Items", they're presented with a list of all items in the vending machine with its quantity remaining:
 Each vending machine product has a slot identifier and a purchase price.
@@ -31,9 +32,15 @@ A product that has run out must indicate that it is SOLD OUT.*/
    }
 
    public Boolean feedMoney(String choice) {
-//      boolean isProcessed;
-         balance = new BigDecimal(choice.substring(1)).setScale(2);
-      System.out.println(" Current Money Provided: $"+balance);
+      Double convertToDB = Double.parseDouble(choice.substring(1));
+
+      if(balance==0){ // if there is no balance
+         balance = convertToDB;
+      }else{
+         balance+=convertToDB;
+      }
+      System.out.println(" Current Money Provided: $"+String.format("%.2f",balance));
+
       // update log.txt (ex.01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00 )
       return true; // temporary
    }

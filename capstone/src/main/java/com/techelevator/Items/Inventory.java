@@ -33,6 +33,7 @@ public class Inventory {
     // check the item is an available
     public void searchInventory(Item item){
 
+        // return message like soldout
     }
 
     // get ItemList , but there is no quantity.
