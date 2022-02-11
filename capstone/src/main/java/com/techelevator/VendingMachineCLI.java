@@ -14,13 +14,13 @@ public class VendingMachineCLI {
     private static final String PURCHASE_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
     private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
 
-	private static final String FEED_MONEY_OPTION_ONE_DOLLAR = "$1";
-	private static final String FEED_MONEY_OPTION_TWO_DOLLAR = "$2";
-	private static final String FEED_MONEY_OPTION_FIVE_DOLLAR = "$5";
-	private static final String FEED_MONEY_OPTION_TEN_DOLLAR = "$10";
-	private static final String[] FEED_MONEY_OPTIONS = {FEED_MONEY_OPTION_ONE_DOLLAR, FEED_MONEY_OPTION_TWO_DOLLAR, FEED_MONEY_OPTION_FIVE_DOLLAR, FEED_MONEY_OPTION_TEN_DOLLAR};
+    private static final String FEED_MONEY_OPTION_ONE_DOLLAR = "$1";
+    private static final String FEED_MONEY_OPTION_TWO_DOLLAR = "$2";
+    private static final String FEED_MONEY_OPTION_FIVE_DOLLAR = "$5";
+    private static final String FEED_MONEY_OPTION_TEN_DOLLAR = "$10";
+    private static final String[] FEED_MONEY_OPTIONS = {FEED_MONEY_OPTION_ONE_DOLLAR, FEED_MONEY_OPTION_TWO_DOLLAR, FEED_MONEY_OPTION_FIVE_DOLLAR, FEED_MONEY_OPTION_TEN_DOLLAR};
 
-	private VendingMachine vm;
+    private VendingMachine vm;
     private Menu menu;
 
     public VendingMachineCLI(Menu menu) {
@@ -40,30 +40,37 @@ public class VendingMachineCLI {
             } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
                 // do purchase
                 choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-               // purchase menu(1) Feed money
+                // purchase menu(1) Feed money
                 if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 
-					choice =(String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
-
-                    if(vm.feedMoney(choice)){
-                        choice =(String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+                    choice = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
+                    // first feed money
+                    if (vm.feedMoney(choice)) {
+                        choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
                         if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-                            choice =(String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
-                            if(vm.feedMoney(choice)){
-                                choice =(String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+                            choice = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
+                            // second feed money
+                            if (vm.feedMoney(choice)) {
+                                choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
                                 if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 
-                                }else if(choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
+                                } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 
                                 }
                             }
+                        } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+                            vm.displayItems();
+                            choice = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
+                            vm.selectProduct(choice);
                         }
                     }
-                // purchase menu(2) Select product
+                    // purchase menu(2) Select product
                 } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+                    vm.displayItems();
+                    choice = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
+                    vm.selectProduct(choice);
 
-                    vm.selectProduct();
-                 // purchase menu(3) finish transaction
+                    // purchase menu(3) finish transaction
                 } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
                /*   Selecting "(3) Finish Transaction" allows the customer to complete the transaction and receive any remaining change.
                     The customer's money is returned using nickels, dimes, and quarters (using the smallest amount of coins possible).

@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 public class CoinBox {
 
     private int feedMoneyAmount;
+    private int moneyRemaining;
     private int totalSales;
-
-
 
     public CoinBox(){
 

@@ -50,4 +50,41 @@ public class Menu {
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
+
+	private void selectProductOption(Object[] options) {
+		out.println();
+		out.println(System.lineSeparator() + "Please enter a product code >>> ");
+
+//		for (int i = 0; i < options.length; i++) {
+//			int optionNum = i + 1;
+//			out.println("("+optionNum + ") " + options[i]);
+//		}
+		out.flush();
+	}
+
+	public Object getChoiceFromOptions2(Object[] options) {
+		Object choice = null;
+		while (choice == null) {
+			selectProductOption(options);
+			choice = getProductCodeFromUserInput(options);
+		}
+		return choice;
+	}
+
+	private Object getProductCodeFromUserInput(Object[] options) {
+		Object choice = null;
+		String userInput = in.nextLine();
+		try {
+			int selectedOption = Integer.valueOf(userInput);
+			if (selectedOption > 0 && selectedOption <= options.length) {
+				choice = options[selectedOption - 1];
+			}
+		} catch (NumberFormatException e) {
+			// eat the exception, an error message will be displayed below since choice will be null
+		}
+		if (choice == null) {
+			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
+		}
+		return userInput;
+	}
 }

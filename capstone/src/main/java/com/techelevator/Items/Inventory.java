@@ -2,7 +2,6 @@ package com.techelevator.Items;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,12 +11,13 @@ public class Inventory {
 
     private String name;
     private int stockAmount;
-    private String slotLocation;
+    private String slotLocation; // productCode
+    private List<Item> itemList;
     private Item item;
 
     //constructor
     public Inventory(){
-
+        itemList= this.getItemList();
 
     }
 
@@ -31,10 +31,17 @@ public class Inventory {
 
     }
 
-    // check the item is an available
-    public void searchInventory(Item item){
-
-        // return message like soldout
+    // check the item whether it is an available or not
+    public Item searchInventory(String productCode){
+        List<Item> itemList= this.getItemList();
+        Item returnedItem= new Item();
+       for(Item item: itemList){
+           if(item.getSlotLocation().equalsIgnoreCase(productCode)){
+               returnedItem = item;
+           }
+       }
+        System.out.println("searchInventory: "+returnedItem.getName()+" "+returnedItem.getPrice());
+        return returnedItem; //temp
     }
 
     // get ItemList , but there is no quantity.
