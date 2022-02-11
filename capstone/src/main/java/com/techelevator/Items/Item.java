@@ -6,7 +6,7 @@ public class Item {
 
     private String slotLocation;
     private String name;
-    private int price;
+    private BigDecimal price;
     private String type;
 
     //constructor
@@ -15,7 +15,7 @@ public class Item {
     public Item(String slotLocation, String name, BigDecimal price, String type) {
         this.slotLocation = slotLocation;
         this.name = name;
-        this.price = price.intValue();
+        this.price = price;
         this.type = type;
     }
 
@@ -24,7 +24,7 @@ public class Item {
         return name;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -42,7 +42,7 @@ public class Item {
         this.name = name;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

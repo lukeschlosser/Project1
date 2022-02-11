@@ -1,13 +1,15 @@
 package com.techelevator.Items;
 
+import java.math.BigDecimal;
+
 public class Candy extends Item{
 
     private String name;
-    private int price;
+    private BigDecimal price;
     private int quantity;
 
     //constructor
-    public Candy(String name, int price){
+    public Candy(String name, BigDecimal price){
         this.name = name;
         this.price = price;
         this.quantity = 5;
@@ -21,7 +23,7 @@ public class Candy extends Item{
     }
 
     @Override
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 }

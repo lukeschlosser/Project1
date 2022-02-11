@@ -13,7 +13,7 @@ public class CoinBox {
 
     }
 
-    public int transation(){
+    public int transaction(){
        // feedMoneyAmount - item
         return 0;
     }

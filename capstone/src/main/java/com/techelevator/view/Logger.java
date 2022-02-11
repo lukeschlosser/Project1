@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 public class Logger {
 
-    LocalDateTime purchasedTime;
     File logFile;
 //    int feedMoney;
 //    int returnedChange;
@@ -13,7 +12,6 @@ public class Logger {
     String slotLocation;
 
     public Logger() {
-
         this.logFile = new File("Log.txt");
     }
 
@@ -24,9 +22,6 @@ public class Logger {
         }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
-
     }
-
-
 
 }

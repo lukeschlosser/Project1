@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Inventory {
+//        The vending machine is automatically restocked each time the application runs.
+//        A product that has run out must indicate that it is SOLD OUT.
 
     private String name;
     private int stockAmount;
@@ -15,7 +17,9 @@ public class Inventory {
     private Item item;
 
     //constructor
-    public Inventory(){}
+    public Inventory(){
+
+    }
 
     //getters
     public String getName() {

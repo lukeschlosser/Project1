@@ -1,4 +1,4 @@
-package com.techelevator.Exceptions;
+package com.techelevator.exceptions;
 
 public class VendingMachineExeptions extends Exception{
 
