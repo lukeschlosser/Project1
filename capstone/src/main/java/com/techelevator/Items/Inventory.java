@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Inventory {
-//        The vending machine is automatically restocked each time the application runs.
-//        A product that has run out must indicate that it is SOLD OUT.
+    //A product that has run out must indicate that it is SOLD OUT.
 
     private String name;
     private int stockAmount;
@@ -21,19 +20,22 @@ public class Inventory {
 
     }
 
-    //getters
-    public String getName() {
-        return name;
+    //The vending machine is automatically restocked each time the application runs.
+    public void addInventory(Item item){
+
     }
 
-    public int getStockAmount() {
-        return stockAmount;
+    // When user purchase an item or items.
+    public void updateInventory(Item item){
+
     }
 
-    public String getSlotLocation() {
-        return slotLocation;
+    // check the item is an available
+    public void searchInventory(Item item){
+
     }
 
+    // get ItemList , but there is no quantity.
     public List<Item> getItemList(){
         String path = "vendingmachine.csv";
         File itemFile = new File(path);
@@ -53,4 +55,16 @@ public class Inventory {
         return stockList;
     }
 
+    //getters
+    public String getName() {
+        return name;
+    }
+
+    public int getStockAmount() {
+        return stockAmount;
+    }
+
+    public String getSlotLocation() {
+        return slotLocation;
+    }
 }
