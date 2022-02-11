@@ -4,26 +4,20 @@ import java.math.BigDecimal;
 
 public class Drink extends Item {
 
-    private String name;
-    private BigDecimal price;
-    private int quantity;
+    /*private String name;
+    private Double price;
+    private int quantity;*/
+    private String sound;
 
     //constructor
-    public Drink(String name, BigDecimal price){
-        this.name = name;
-        this.price = price;
-        this.quantity = 5;
+    public Drink(String slotLocation, String name, Double price, String type){
+        super(slotLocation, name, price, type);
+        this.sound = "Glug Glug, Yum!";
     }
 
     //getters
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public BigDecimal getPrice() {
-        return price;
+    public String getSound() {
+        return sound;
     }
 }

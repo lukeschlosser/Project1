@@ -1,22 +1,24 @@
 package com.techelevator.Items;
 
-import java.math.BigDecimal;
 
 public class Item {
 
     private String slotLocation;
     private String name;
-    private BigDecimal price;
+    private Double price;
     private String type;
+    private int quantity = 5;
+
 
     //constructor
     public Item(){}
 
-    public Item(String slotLocation, String name, BigDecimal price, String type) {
+    public Item(String slotLocation, String name, Double price, String type) {
         this.slotLocation = slotLocation;
         this.name = name;
         this.price = price;
         this.type = type;
+
     }
 
     //getters
@@ -24,7 +26,7 @@ public class Item {
         return name;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -36,13 +38,17 @@ public class Item {
         return slotLocation;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     //setters
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -53,6 +59,7 @@ public class Item {
     public void setSlotLocation(String slotLocation) {
         this.slotLocation = slotLocation;
     }
+
 
 
 }

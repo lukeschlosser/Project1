@@ -18,6 +18,7 @@ public class Inventory {
     //constructor
     public Inventory(){
 
+
     }
 
     //The vending machine is automatically restocked each time the application runs.
@@ -47,7 +48,7 @@ public class Inventory {
             while(input.hasNext()){
                 String lineOfText = input.nextLine();
                 itemData = lineOfText.split("\\|");
-                item = new Item(itemData[0],itemData[1], new BigDecimal(itemData[2]),itemData[3]);
+                item = new Item(itemData[0],itemData[1], Double.parseDouble(itemData[2]),itemData[3]);
                 stockList.add(item);
             }
         }catch (FileNotFoundException e) {

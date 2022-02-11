@@ -1,29 +1,22 @@
 package com.techelevator.Items;
 
-import java.math.BigDecimal;
 
 public class Gum extends Item{
 
-    private String name;
-    private BigDecimal price;
-    private int quantity;
+    /*private String name;
+    private Double price;
+    private int quantity;*/
+    private String sound;
 
     //constructor
-    public Gum(String name, BigDecimal price){
-        this.name = name;
-        this.price = price;
-        this.quantity = 5;
+    public Gum(String slotLocation, String name, Double price, String type){
+        super(slotLocation, name, price, type);
+        this.sound = "Chew Chew, Yum!";
     }
 
     //getters
-    @Override
-    public String getName() {
-        return name;
-    }
 
-    @Override
-    public BigDecimal getPrice() {
-        return price;
+    public String getSound() {
+        return sound;
     }
-
 }

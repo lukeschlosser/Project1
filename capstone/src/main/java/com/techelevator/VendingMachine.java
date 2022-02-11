@@ -27,7 +27,7 @@ A product that has run out must indicate that it is SOLD OUT.*/
    public void displayItems() {
       Map<String, Integer> itemMap = new HashMap<>();
       for(Item item : itemList) {
-         System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + item.getPrice() + /*+ quantity*/ " out of 5 remaining");
+         System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + String.format("%.2f", item.getPrice()) + " " + item.getQuantity() + " out of 5 remaining");
       }
    }
 

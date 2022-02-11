@@ -61,7 +61,7 @@ public class VendingMachineCLI {
                     }
                 // purchase menu(2) Select product
                 } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                    // select product -> where do we save the product?
+
                     vm.selectProduct();
                  // purchase menu(3) finish transaction
                 } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
