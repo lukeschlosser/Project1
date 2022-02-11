@@ -11,6 +11,7 @@ public class VendingMachine {
 //The vending machine is automatically restocked each time the application runs.
    private Inventory inventory;
    private List<Item> itemList;
+   private Item item;
    private Double balance;
 
    public VendingMachine(){
@@ -46,8 +47,12 @@ A product that has run out must indicate that it is SOLD OUT.*/
 
    public Boolean selectProduct(String productCode) {
       System.out.println("productCode: "+productCode);
-      Item item = inventory.searchInventory(productCode);
+      item = inventory.searchInventory(productCode);
       Double remaining = balance - item.getPrice();
+      balance=remaining;
+
+     item.setQuantity(1);
+
       System.out.println("ItemName: "+item.getName()+" ItemPrice: "+item.getPrice()+" money remaining: "+ remaining);
       return true;
    }
@@ -61,11 +66,11 @@ After the product is dispensed, the machine must update its balance accordingly 
       * */
 
    public void finishTransaction() {
-/*
-Selecting "(3) Finish Transaction" allows the customer to complete the transaction and receive any remaining change.
-The customer's money is returned using nickels, dimes, and quarters (using the smallest amount of coins possible).
-The machine's current balance must be updated to $0 remaining.
+      CoinBox cb = new CoinBox();
+      cb.giveChange(balance);
+      balance = 0.00;
 
+      /*
 Each purchase must generate a line in a file called Log.txt.
 ex. 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00*/
    }

@@ -51,6 +51,18 @@ public class Menu {
 		out.flush();
 	}
 
+
+
+	public Object getChoiceFromOptions2(Object[] options) {
+		Object choice = null;
+		while (choice == null) {
+			selectProductOption(options);
+			choice = getProductCodeFromUserInput(options);
+		}
+//		displayProductOption(options); /// updated
+		return choice;
+	}
+
 	private void selectProductOption(Object[] options) {
 		out.println();
 		out.println(System.lineSeparator() + "Please enter a product code >>> ");
@@ -60,15 +72,6 @@ public class Menu {
 //			out.println("("+optionNum + ") " + options[i]);
 //		}
 		out.flush();
-	}
-
-	public Object getChoiceFromOptions2(Object[] options) {
-		Object choice = null;
-		while (choice == null) {
-			selectProductOption(options);
-			choice = getProductCodeFromUserInput(options);
-		}
-		return choice;
 	}
 
 	private Object getProductCodeFromUserInput(Object[] options) {
@@ -82,9 +85,18 @@ public class Menu {
 		} catch (NumberFormatException e) {
 			// eat the exception, an error message will be displayed below since choice will be null
 		}
-		if (choice == null) {
-			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
-		}
-		return userInput;
+		return userInput; // return productCode
 	}
+
+//	private void displayProductOption(Object[] options) {
+//		out.println();
+//
+//		for (int i = 0; i < options.length; i++) {
+//			int optionNum = i + 1;
+//			out.println("("+optionNum + ") " + options[i]);
+//		}
+//
+//		out.println(System.lineSeparator() + "Please enter a product code >>> ");
+//		out.flush();
+//	}
 }

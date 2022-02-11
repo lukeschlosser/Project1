@@ -44,7 +44,7 @@ public class CoinBox /*extends Menu????*/ {
         amountRecieved -= 0.05;
     }
 
-        System.out.println("Your change is " + quarters + "quarters, " + dimes + "dimes, " + nickels + "nickels.");
+        System.out.println("Your change is " + quarters + " quarters, " + dimes + " dimes, " + nickels + " nickels.");
     }
 
 

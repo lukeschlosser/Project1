@@ -61,14 +61,34 @@ public class VendingMachineCLI {
                         } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                             vm.displayItems();
                             choice = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
-                            vm.selectProduct(choice);
+                            if (vm.selectProduct(choice)) {
+                                choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+
+                                if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+
+                                } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+
+                                } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+                                    vm.finishTransaction();
+                                }
+                            }
                         }
                     }
                     // purchase menu(2) Select product
                 } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                     vm.displayItems();
+                    if(!vm.selectProduct(choice)){ // did not find the item.
+                        System.out.println("The product code does not exist.");
+                    }
                     choice = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
-                    vm.selectProduct(choice);
+
+                    if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+
+                    } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+
+                    } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
+
+                    }
 
                     // purchase menu(3) finish transaction
                 } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {

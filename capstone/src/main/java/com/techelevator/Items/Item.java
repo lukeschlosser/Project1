@@ -7,7 +7,7 @@ public class Item {
     private String name;
     private Double price;
     private String type;
-    private int quantity = 5;
+    private int quantity= 5;
 
 
     //constructor
@@ -18,6 +18,7 @@ public class Item {
         this.name = name;
         this.price = price;
         this.type = type;
+//        this.quantity = quantity;
 
     }
 
@@ -60,6 +61,8 @@ public class Item {
         this.slotLocation = slotLocation;
     }
 
-
+    public void setQuantity(int i){
+        quantity= quantity-i;
+    }
 
 }
