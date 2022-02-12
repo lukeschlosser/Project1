@@ -36,24 +36,26 @@ public class VendingMachineCLI {
             String userChoice = (String) menu.getChoiceFromOptions(activeMenu);
 
             if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-                // display vending machine items
                 vm.listItems();
+
             } else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                // display purchase menu / do purchase
                 activeMenu = PURCHASE_MENU_OPTIONS;
+
             } else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
                 vm.exitDialog();
                 run = false;
+
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_DEPOSIT_MONEY)) {
-                // deposit money here
                 String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
                 vm.makeDeposit(deposit);
+
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                // display vending machine items
                 vm.listItems();
-//                String product = (String) menu.getChoiceFromOptions(vm.currenInventtory.keySet().toArray(),ture);
+//rich's code   String product = (String) menu.getChoiceFromOptions(vm.currenInventtory.keySet().toArray(),ture);
                 String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
-                vm.selectProduct(productCode);
+                if(!vm.selectProduct(productCode)){
+                 activeMenu = PURCHASE_MENU_OPTIONS;
+                }
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_END_TRANSACTION)) {
                 vm.closeBank();
                 activeMenu = MAIN_MENU_OPTIONS;

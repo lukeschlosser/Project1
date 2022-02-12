@@ -64,6 +64,7 @@ public class Menu {
 
 	private void selectProductOption(Object[] options) {
 		out.println();
+
 		out.println(System.lineSeparator() + "Please enter a product code >>> ");
 
 		out.flush();

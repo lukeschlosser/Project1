@@ -1,15 +1,12 @@
-package com.techelevator.view;
+package com.techelevator;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Logger {
 
-    File logFile;
-//    int feedMoney;
-//    int returnedChange;
-    String itemName;
-    String slotLocation;
+    private File logFile;
 
     public Logger() {
         this.logFile = new File("Log.txt");
@@ -17,7 +14,7 @@ public class Logger {
 
     public void log(String message) throws FileNotFoundException{
         try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
-        writer.println(LocalDateTime.now() + " " + message);
+            writer.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss a")) + " " + message);
 
         }catch(FileNotFoundException e){
             System.out.println(e.getMessage());

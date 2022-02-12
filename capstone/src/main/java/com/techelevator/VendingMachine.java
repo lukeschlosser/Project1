@@ -1,87 +1,107 @@
 package com.techelevator;
 
-import com.techelevator.Items.Inventory;
-import com.techelevator.Items.Item;
+import com.techelevator.inventory.Inventory;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class VendingMachine {
-//The vending machine is automatically restocked each time the application runs.
-   private Inventory inventory;
-   private List<Item> itemList;
-   private Item item;
-   private Double balance;
 
-   public VendingMachine(){
-      this.inventory = new Inventory();
-      this.itemList = this.inventory.getItemList();
-      balance = 0.00;
-   }
-/*When the customer selects "(1) Display Vending Machine Items", they're presented with a list of all items in the vending machine with its quantity remaining:
-Each vending machine product has a slot identifier and a purchase price.
-Each slot in the vending machine has enough room for 5 of that product.
-Every product is initially stocked to the maximum amount.
-A product that has run out must indicate that it is SOLD OUT.*/
-   public void listItems() {
-      Map<String, Integer> itemMap = new HashMap<>();
-      for(Item item : itemList) {
-         System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + String.format("%.2f", item.getPrice()) + " " + item.getQuantity() + " out of 5 remaining");
-      }
-   }
+    private Double balance;
+    private Inventory inventory;
+    private List<Inventory> inventoryList;
+    private static Logger appLog = new Logger();
+    private Map<String, String> soundMap;
 
-   public Boolean makeDeposit(String deposit) {
-      Double convertToDB = Double.parseDouble(deposit.substring(1));
+    public VendingMachine() {
+        this.balance = 0.00;
+        this.inventory = new Inventory();
+        this.createSoundMap();
+    }
 
-      if(balance==0){ // if there is no balance
-         balance = convertToDB;
-      }else{
-         balance+=convertToDB;
-      }
-      System.out.println(" Current Money Provided: $"+String.format("%.2f",balance));
+    public void createSoundMap() {
+        this.soundMap = new HashMap<>();
+        soundMap.put("Chip", "Crunch Crunch, Yum!");
+        soundMap.put("Candy", "Munch Munch, Yum!");
+        soundMap.put("Drink", "Glug Glug, Yum!");
+        soundMap.put("Gum", "Chew Chew, Yum!");
+    }
 
-      // update log.txt (ex.01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00 )
-      return true; // temporary
-   }
+    public void listItems() {
+        inventoryList = inventory.getInventoryList();
+        for (Inventory inv : inventoryList) {
+            if (inv.getQuantity() == 0) {
+                System.out.println("It is SOLD OUT.");
+            } else {
+                System.out.println(inv.getItem().getSlotLocation() + " " + inv.getItem().getName() + " $" + String.format("%.2f", inv.getItem().getPrice()) + " " + inv.getQuantity() + " out of 5 remaining");
+            }
+        }
+    }
 
-   public void selectProduct(String productCode) {
-      System.out.println("productCode: "+productCode);
-      item = inventory.searchInventory(productCode);
-      if(item.equals(null)){
-         System.out.println("The product code does not exist.");
-      }
+    public Boolean makeDeposit(String deposit) {
+        Double convertToDB = Double.parseDouble(deposit.substring(1));
+        String msg = "";
+        if (balance == 0) {
+            balance = convertToDB;
+            msg = "FEED MONEY: $" + String.format("%.2f", (balance));
+        } else {
+            msg = "FEED MONEY: $" + String.format("%.2f", (balance)) + " $" + String.format("%.2f", (balance + convertToDB));
+            balance += convertToDB;
+        }
+        System.out.println(" Current Money Provided: $" + String.format("%.2f", balance));
 
-      Double remaining = balance - item.getPrice();
-      balance=remaining;
+        try {
+            appLog.log(msg);
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException " + e.getMessage());
+        }
+        return true;
+    }
 
-     item.setQuantity(1);
+    public boolean selectProduct(String productCode) {
+        boolean successful;
+        String msg = "";
+        Inventory inv = inventory.searchInventory(productCode);
+        if (inv==null) {
+            System.out.println("The product code does not exist.");
+            successful = false;
+        } else if (inv.getQuantity() == 0) {
+            System.out.println("It is sold out.");
+            successful = false;
+        } else {
+            Double remaining = balance - inv.getItem().getPrice();
+            msg = inv.getItem().getName()+" "+inv.getItem().getSlotLocation()+" $"+String.format("%.2f",balance)+" $"+String.format("%.2f",remaining);
+            balance = remaining;
+            inv.updateInventory(inv);
+            System.out.println(inv.getItem().getName() + ", $" + inv.getItem().getPrice() + ", remaining: $" + remaining);
+            System.out.println(soundMap.get(inv.getItem().getType()));
+            successful = true;
+        }
 
-      System.out.println(item.getName()+", $"+item.getPrice()+", remaining: $"+ remaining);
-   }
+        try {
+            appLog.log(msg);
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException " + e.getMessage());
+        }
 
-   /*
-If the product code does not exist, the customer is informed and returned to the Purchase menu.
-If a product is sold out, the customer is informed and returned to the Purchase menu.
-If a valid product is selected, it is dispensed to the customer.
-Dispensing an item prints the item name, cost, and the money remaining. Dispensing also returns a sound
-After the product is dispensed, the machine must update its balance accordingly and return the customer to the Purchase menu.
-      * */
+        return successful;
+    }
 
-   public void closeBank() {
-      CoinBox cb = new CoinBox();
-      cb.giveChange(balance);
-      balance = 0.00;
+    public void closeBank() {
+        CoinBox cb = new CoinBox();
+        cb.giveChange(balance);
+        String msg = "GIVE CHANGE: $"+String.format("%.2f",balance)+" $0.00";
+       try {
+          appLog.log(msg);
+       } catch (FileNotFoundException e) {
+          System.out.println("FileNotFoundException " + e.getMessage());
+       }
+        balance = 0.00;
+    }
 
-      /*  Each purchase must generate a line in a file called Log.txt.
-      ex. 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00*/
-   }
-
-   public void exitDialog() {
-      System.out.println("Thank you! Have a good day!");
-   }
-
-//   public void printBalance(){
-//      System.out.println(" Current Money Provided: $"+balance);
-//   }
+    public void exitDialog() {
+        System.out.println("Thank you! Have a good day!");
+    }
 }
