@@ -24,15 +24,15 @@ Each vending machine product has a slot identifier and a purchase price.
 Each slot in the vending machine has enough room for 5 of that product.
 Every product is initially stocked to the maximum amount.
 A product that has run out must indicate that it is SOLD OUT.*/
-   public void displayItems() {
+   public void listItems() {
       Map<String, Integer> itemMap = new HashMap<>();
       for(Item item : itemList) {
          System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + String.format("%.2f", item.getPrice()) + " " + item.getQuantity() + " out of 5 remaining");
       }
    }
 
-   public Boolean feedMoney(String choice) {
-      Double convertToDB = Double.parseDouble(choice.substring(1));
+   public Boolean makeDeposit(String deposit) {
+      Double convertToDB = Double.parseDouble(deposit.substring(1));
 
       if(balance==0){ // if there is no balance
          balance = convertToDB;
@@ -45,16 +45,19 @@ A product that has run out must indicate that it is SOLD OUT.*/
       return true; // temporary
    }
 
-   public Boolean selectProduct(String productCode) {
+   public void selectProduct(String productCode) {
       System.out.println("productCode: "+productCode);
       item = inventory.searchInventory(productCode);
+      if(item.equals(null)){
+         System.out.println("The product code does not exist.");
+      }
+
       Double remaining = balance - item.getPrice();
       balance=remaining;
 
      item.setQuantity(1);
 
-      System.out.println("ItemName: "+item.getName()+" ItemPrice: "+item.getPrice()+" money remaining: "+ remaining);
-      return true;
+      System.out.println(item.getName()+", $"+item.getPrice()+", remaining: $"+ remaining);
    }
 
    /*
@@ -65,19 +68,17 @@ Dispensing an item prints the item name, cost, and the money remaining. Dispensi
 After the product is dispensed, the machine must update its balance accordingly and return the customer to the Purchase menu.
       * */
 
-   public void finishTransaction() {
+   public void closeBank() {
       CoinBox cb = new CoinBox();
       cb.giveChange(balance);
       balance = 0.00;
 
-      /*
-Each purchase must generate a line in a file called Log.txt.
-ex. 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00*/
+      /*  Each purchase must generate a line in a file called Log.txt.
+      ex. 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00*/
    }
 
-   public void exit() {
+   public void exitDialog() {
       System.out.println("Thank you! Have a good day!");
-      System.exit(1);
    }
 
 //   public void printBalance(){

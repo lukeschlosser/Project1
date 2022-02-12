@@ -40,8 +40,8 @@ public class Inventory {
                returnedItem = item;
            }
        }
-        System.out.println("searchInventory: "+returnedItem.getName()+" "+returnedItem.getPrice());
-        return returnedItem; //temp
+//        System.out.println("searchInventory: "+returnedItem.getName()+" "+String.format("%.2f", returnedItem.getPrice()));
+        return returnedItem;
     }
 
     // get ItemList , but there is no quantity.

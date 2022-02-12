@@ -59,7 +59,6 @@ public class Menu {
 			selectProductOption(options);
 			choice = getProductCodeFromUserInput(options);
 		}
-//		displayProductOption(options); /// updated
 		return choice;
 	}
 
@@ -67,10 +66,6 @@ public class Menu {
 		out.println();
 		out.println(System.lineSeparator() + "Please enter a product code >>> ");
 
-//		for (int i = 0; i < options.length; i++) {
-//			int optionNum = i + 1;
-//			out.println("("+optionNum + ") " + options[i]);
-//		}
 		out.flush();
 	}
 
@@ -87,16 +82,4 @@ public class Menu {
 		}
 		return userInput; // return productCode
 	}
-
-//	private void displayProductOption(Object[] options) {
-//		out.println();
-//
-//		for (int i = 0; i < options.length; i++) {
-//			int optionNum = i + 1;
-//			out.println("("+optionNum + ") " + options[i]);
-//		}
-//
-//		out.println(System.lineSeparator() + "Please enter a product code >>> ");
-//		out.flush();
-//	}
 }
