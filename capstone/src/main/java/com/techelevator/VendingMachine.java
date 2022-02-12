@@ -74,9 +74,9 @@ public class VendingMachine {
         } else {
             Double remaining = balance - item.getPrice();
             msg = item.getName()+" "+item.getSlotLocation()+" $"+String.format("%.2f",balance)+" $"+String.format("%.2f",remaining);
-            balance = remaining;
+            balance = remaining;    // update balance
             item.setQuantity(item.getQuantity()-1); // update inventory
-            System.out.println(item.getName() + ", $" + item.getPrice() + ", remaining: $" + remaining);
+            System.out.println(item.getName() + " $" + item.getPrice() + " remaining: $" + remaining);
             System.out.println(soundMap.get(item.getType()));
             successful = true;
         }
@@ -118,4 +118,14 @@ public class VendingMachine {
         System.out.println("Thank you! Have a good day!");
     }
 
+    public void availableItems() {
+        if(inventoryList== null) {
+            inventoryList = inventory.getInventoryList();  // start
+        }
+        for (Item item : inventoryList) {
+            if (!(item.getQuantity() == 0)) {
+                System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + String.format("%.2f", item.getPrice()) + " " + item.getQuantity() + " out of 5 remaining");
+            }
+        }
+    }
 }

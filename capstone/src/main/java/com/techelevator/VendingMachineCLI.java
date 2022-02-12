@@ -55,7 +55,7 @@ public class VendingMachineCLI {
                 vm.makeDeposit(deposit);
 
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                vm.listItems();
+                vm.availableItems();
 //String product = (String) menu.getChoiceFromOptions(vm.currenInventory.keySet().toArray(),ture);
                 String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
                 if(!vm.selectProduct(productCode)){
