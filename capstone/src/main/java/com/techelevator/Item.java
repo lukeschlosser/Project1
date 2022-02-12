@@ -9,6 +9,7 @@ public class Item{
     private String type;
     private int quantity;
 
+
     public Item(String slotLocation, String name, Double price, String type) {
         this.slotLocation = slotLocation;
         this.name = name;
