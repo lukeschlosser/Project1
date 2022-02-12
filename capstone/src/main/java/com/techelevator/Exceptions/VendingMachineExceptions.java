@@ -6,5 +6,4 @@ public class VendingMachineExceptions extends Exception{
         super(message);
     }
 
-// Do we need VendingMachineException class?
 }

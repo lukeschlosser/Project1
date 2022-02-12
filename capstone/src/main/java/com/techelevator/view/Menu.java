@@ -51,8 +51,7 @@ public class Menu {
 		out.flush();
 	}
 
-
-
+	//==================================   update needed =====================================
 	public Object getChoiceFromOptions2(Object[] options) {
 		Object choice = null;
 		while (choice == null) {
@@ -64,9 +63,7 @@ public class Menu {
 
 	private void selectProductOption(Object[] options) {
 		out.println();
-
 		out.println(System.lineSeparator() + "Please enter a product code >>> ");
-
 		out.flush();
 	}
 
@@ -81,6 +78,6 @@ public class Menu {
 		} catch (NumberFormatException e) {
 			// eat the exception, an error message will be displayed below since choice will be null
 		}
-		return userInput; // return productCode
+		return userInput; //productCode
 	}
 }

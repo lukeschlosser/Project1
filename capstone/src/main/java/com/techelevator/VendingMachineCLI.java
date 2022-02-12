@@ -2,6 +2,8 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.util.Timer;
+
 public class VendingMachineCLI {
     //MAIN OPTION
     private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -23,10 +25,13 @@ public class VendingMachineCLI {
 
     private VendingMachine vm;
     private Menu menu;
+    private Timer timer;
 
     public VendingMachineCLI(Menu menu) {
         this.vm = new VendingMachine();
         this.menu = menu;
+//        this.timer = new Timer();
+//        timer.schedule(vm.restockInventory(),);
     }
 
     public void run() {
@@ -51,7 +56,7 @@ public class VendingMachineCLI {
 
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                 vm.listItems();
-//rich's code   String product = (String) menu.getChoiceFromOptions(vm.currenInventtory.keySet().toArray(),ture);
+//String product = (String) menu.getChoiceFromOptions(vm.currenInventory.keySet().toArray(),ture);
                 String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
                 if(!vm.selectProduct(productCode)){
                  activeMenu = PURCHASE_MENU_OPTIONS;
