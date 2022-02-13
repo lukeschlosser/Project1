@@ -8,19 +8,48 @@ import java.util.Scanner;
 
 public class Inventory {
 
-    public Inventory(){}
+    private List<Item> inventoryList;
+
+    public Inventory() {
+        this.inventoryList = this.getCSVList();
+    }
 
     public List<Item> getInventoryList() {
+        return inventoryList;
+    }
+
+    public Item searchInventory(String productCode) {
+        Item searchedItem = null;
+        for (Item item : inventoryList) {
+            if (item.getSlotLocation().equalsIgnoreCase(productCode)) {
+                searchedItem = item;
+            }
+        }
+        return searchedItem;
+    }
+
+    public void updateInventory(Item itemUpdated) {
+        for (Item item : inventoryList) {
+            if (item.getSlotLocation().equals(itemUpdated.getSlotLocation())) {
+                item.setQuantity(item.getQuantity() - 1);
+            }
+        }
+    }
+
+    private List<Item> getCSVList() {
         String path = "vendingmachine.csv";
         File itemFile = new File(path);
         String[] itemData;
 
-        List<Item> inventoryList = new ArrayList();
+        inventoryList = new ArrayList();
         try (Scanner input = new Scanner(itemFile)) {
             while (input.hasNext()) {
                 String lineOfText = input.nextLine();
                 itemData = lineOfText.split("\\|");
-                Item item = new Item(itemData[0], itemData[1], Double.parseDouble(itemData[2]), itemData[3]);
+                Item item = new Item(itemData[0],
+                        itemData[1],
+                        Double.parseDouble(itemData[2]),
+                        itemData[3]);
                 inventoryList.add(item);    // quantity = 5
             }
         } catch (FileNotFoundException e) {
@@ -28,5 +57,4 @@ public class Inventory {
         }
         return inventoryList;
     }
-
 }

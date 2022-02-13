@@ -25,13 +25,10 @@ public class VendingMachineCLI {
 
     private VendingMachine vm;
     private Menu menu;
-    private Timer timer;
 
     public VendingMachineCLI(Menu menu) {
         this.vm = new VendingMachine();
         this.menu = menu;
-//        this.timer = new Timer();
-//        timer.schedule(vm.restockInventory(),);
     }
 
     public void run() {
@@ -55,11 +52,10 @@ public class VendingMachineCLI {
                 vm.makeDeposit(deposit);
 
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                vm.availableItems();
-//String product = (String) menu.getChoiceFromOptions(vm.currenInventory.keySet().toArray(),ture);
+                vm.getAvailableItems();
                 String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
-                if(!vm.selectProduct(productCode)){
-                 activeMenu = PURCHASE_MENU_OPTIONS;
+                if (!vm.selectProduct(productCode)) {
+                    activeMenu = PURCHASE_MENU_OPTIONS;
                 }
             } else if (userChoice.equals(PURCHASE_MENU_OPTION_END_TRANSACTION)) {
                 vm.closeBank();

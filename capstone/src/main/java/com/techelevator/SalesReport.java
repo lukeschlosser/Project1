@@ -1,7 +1,7 @@
 package com.techelevator;
 
 public class SalesReport {
-
+    // after coinbox
     private String itemName;
     private int totalSales;
 

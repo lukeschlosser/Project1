@@ -12,11 +12,11 @@ public class Logger {
         this.logFile = new File("Log.txt");
     }
 
-    public void log(String message) throws FileNotFoundException{
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
+    public void log(String message) throws FileNotFoundException {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))) {
             writer.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss a")) + " " + message);
 
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
