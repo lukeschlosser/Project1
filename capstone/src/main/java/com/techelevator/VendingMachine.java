@@ -10,7 +10,7 @@ public class VendingMachine {
     private static Logger appLog = new Logger();
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private Map<String, String> soundMap;
-    private Double balance;
+    private double balance;
 
     public VendingMachine() {
         this.balance = 0.00;
@@ -29,8 +29,9 @@ public class VendingMachine {
         }
     }
 
-    public void makeDeposit(String deposit) {
-        double convertToDB = Double.parseDouble(deposit.substring(1));
+    public boolean makeDeposit(String deposit) {
+        boolean successful;
+        double convertToDB = (deposit!="")?Double.parseDouble(deposit.substring(1)):0;
         String msg;
         if (balance == 0) {
             balance = convertToDB;
@@ -39,13 +40,16 @@ public class VendingMachine {
             msg = "FEED MONEY: $" + df.format(balance) + " $" + df.format(balance + convertToDB);
             balance += convertToDB;
         }
-        System.out.println(" Current Money Provided: $" + df.format(balance));
+     //   System.out.println(" Current Money Provided: $" + df.format(balance));
 
         try {
             appLog.log(msg);
+            successful = true;
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFoundException " + e.getMessage());
+            successful = false;
         }
+        return successful;
     }
 
     public boolean selectProduct(String productCode) {
@@ -111,5 +115,11 @@ public class VendingMachine {
         soundMap.put("Candy", "Munch Munch, Yum!");
         soundMap.put("Drink", "Glug Glug, Yum!");
         soundMap.put("Gum", "Chew Chew, Yum!");
+    }
+
+    public void viewBalance() {
+        if(balance!=0){
+            System.out.println(" Current Money Provided: $" + df.format(balance));
+        }
     }
 }

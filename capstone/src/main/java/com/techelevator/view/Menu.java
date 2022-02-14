@@ -51,7 +51,7 @@ public class Menu {
 		out.flush();
 	}
 
-	//==================================   update needed =====================================
+	//==================   update needed ================
 	public Object getChoiceFromOptions2(Object[] options) {
 		Object choice = null;
 		while (choice == null) {

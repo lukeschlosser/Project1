@@ -16,7 +16,7 @@ public class VendingMachineTest {
 
     @After
     public void teardown() {
-
+        vm = null;
     }
 
 
@@ -55,9 +55,9 @@ public class VendingMachineTest {
     public void selectProductInvalidCode() { // this should fail
 
         String productCode = "A6";
-        boolean expected = true;
+        boolean expected = false;
 
-        Assert.assertEquals(expected, vm.selectProduct(productCode));
+        Assert.assertFalse(vm.selectProduct(productCode)); // updated by jen
     }
 
 
