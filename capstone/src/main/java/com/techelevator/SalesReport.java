@@ -9,4 +9,9 @@ public class SalesReport {
         this.itemName = itemName;
         this.totalSales = totalSales;
     }
+
+
+
+
+
 }

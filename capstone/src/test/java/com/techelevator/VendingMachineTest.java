@@ -58,7 +58,6 @@ public class VendingMachineTest {
     public void selectProductInvalidCode() throws InsufficientFundsException, InvalidSlotException, SoldOutException { // this should fail
 
         String productCode = "A6";
-        boolean expected = false;
 
         Assert.assertFalse(vm.selectProduct(productCode));
     }
