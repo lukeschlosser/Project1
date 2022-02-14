@@ -4,10 +4,16 @@ package com.techelevator;
 public class CoinBox {
     // update the totalSales after user's selection
     private int totalSales;
+    private static CoinBox cb;
 
-    public CoinBox() {
+    private  CoinBox() {}
+
+    public static CoinBox getInstance()
+    {
+        if (cb==null)
+            cb = new CoinBox();
+        return cb;
     }
-
 //    public int transaction(){
 //       // feedMoneyAmount - item
 //        return 0;

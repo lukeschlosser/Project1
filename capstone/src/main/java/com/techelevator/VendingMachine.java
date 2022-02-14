@@ -61,7 +61,7 @@ public class VendingMachine {
         String msg = "";
         Item item = inventory.searchInventory(productCode);
         if (item == null) {
-            throw new InvalidSlotException(productCode+" is invalid, must provide a valid product code.");
+            throw new InvalidSlotException("An invalid product code. You must provide a valid product code.");
         } else if (item.getQuantity() == 0) {
             throw new SoldOutException(productCode+" is sold out.");
         } else {
@@ -73,7 +73,7 @@ public class VendingMachine {
                 System.out.println(item.getName() + " $" + item.getPrice() + " remaining: $" + remaining);
                 System.out.println(soundMap.get(item.getType()));
                 successful = true;
-            }else { throw new InsufficientFundsException("Exceeding Balance. Your balance is "+balance);}
+            }else { throw new InsufficientFundsException("Insufficient Balance. Your balance is "+balance);}
         }
 
         try {
@@ -88,8 +88,7 @@ public class VendingMachine {
     }
 
     public void closeBank() {
-        CoinBox cb = new CoinBox();
-        cb.giveChange(balance);
+        CoinBox.getInstance().giveChange(balance);
         String msg = "GIVE CHANGE: $" + df.format(balance) + " $0.00";
         try {
             appLog.log(msg);
