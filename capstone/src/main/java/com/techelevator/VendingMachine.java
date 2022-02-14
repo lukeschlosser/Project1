@@ -1,5 +1,9 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InsufficientFundsException;
+import com.techelevator.exceptions.InvalidSlotException;
+import com.techelevator.exceptions.SoldOutException;
+
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -31,7 +35,7 @@ public class VendingMachine {
 
     public boolean makeDeposit(String deposit) {
         boolean successful;
-        double convertToDB = (deposit!="")?Double.parseDouble(deposit.substring(1)):0;
+        double convertToDB = (!Objects.equals(deposit, "")) ? Double.parseDouble(deposit.substring(1)) : 0;
         String msg;
         if (balance == 0) {
             balance = convertToDB;
@@ -40,7 +44,7 @@ public class VendingMachine {
             msg = "FEED MONEY: $" + df.format(balance) + " $" + df.format(balance + convertToDB);
             balance += convertToDB;
         }
-     //   System.out.println(" Current Money Provided: $" + df.format(balance));
+        System.out.println(" Current Money Provided: $" + df.format(balance));
 
         try {
             appLog.log(msg);
@@ -52,24 +56,24 @@ public class VendingMachine {
         return successful;
     }
 
-    public boolean selectProduct(String productCode) {
-        boolean successful;
+    public boolean selectProduct(String productCode) throws InvalidSlotException, InsufficientFundsException, SoldOutException {
+        boolean successful=false;
         String msg = "";
         Item item = inventory.searchInventory(productCode);
         if (item == null) {
-            System.out.println("The product code does not exist.");
-            successful = false;
+            throw new InvalidSlotException(productCode+" is invalid, must provide a valid product code.");
         } else if (item.getQuantity() == 0) {
-            System.out.println("It is sold out.");
-            successful = false;
+            throw new SoldOutException(productCode+" is sold out.");
         } else {
             double remaining = Double.parseDouble(df.format(balance - item.getPrice()));
-            msg = item.getName() + " " + item.getSlotLocation() + " $" + df.format(balance) + " $" + df.format(remaining);
-            balance = remaining;    // update balance
-            inventory.updateInventory(item);   // update inventory
-            System.out.println(item.getName() + " $" + item.getPrice() + " remaining: $" + remaining);
-            System.out.println(soundMap.get(item.getType()));
-            successful = true;
+            if(remaining>=0) {
+                msg = item.getName() + " " + item.getSlotLocation() + " $" + df.format(balance) + " $" + df.format(remaining);
+                balance = remaining;    // update balance
+                inventory.updateInventory(item);   // update inventory
+                System.out.println(item.getName() + " $" + item.getPrice() + " remaining: $" + remaining);
+                System.out.println(soundMap.get(item.getType()));
+                successful = true;
+            }else { throw new InsufficientFundsException("Exceeding Balance. Your balance is "+balance);}
         }
 
         try {
@@ -117,9 +121,9 @@ public class VendingMachine {
         soundMap.put("Gum", "Chew Chew, Yum!");
     }
 
-    public void viewBalance() {
-        if(balance!=0){
-            System.out.println(" Current Money Provided: $" + df.format(balance));
-        }
-    }
+//    public void viewBalance() {
+//        if(balance!=0){
+//            System.out.println(" Current Money Provided: $" + df.format(balance));
+//        }
+//    }
 }

@@ -1,5 +1,8 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InsufficientFundsException;
+import com.techelevator.exceptions.InvalidSlotException;
+import com.techelevator.exceptions.SoldOutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,12 +55,12 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void selectProductInvalidCode() { // this should fail
+    public void selectProductInvalidCode() throws InsufficientFundsException, InvalidSlotException, SoldOutException { // this should fail
 
         String productCode = "A6";
         boolean expected = false;
 
-        Assert.assertFalse(vm.selectProduct(productCode)); // updated by jen
+        Assert.assertFalse(vm.selectProduct(productCode));
     }
 
 

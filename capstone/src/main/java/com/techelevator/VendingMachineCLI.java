@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.VendingMachineExceptions;
 import com.techelevator.view.Menu;
 
 import java.util.Timer;
@@ -36,30 +37,33 @@ public class VendingMachineCLI {
         boolean run = true;
         while (run) {
             String userChoice = (String) menu.getChoiceFromOptions(activeMenu);
+            try {
+                if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
+                    vm.listItems();
 
-            if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-                vm.listItems();
-
-            } else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                activeMenu = PURCHASE_MENU_OPTIONS;
-
-            } else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
-                vm.exitDialog();
-                run = false;
-
-            } else if (userChoice.equals(PURCHASE_MENU_OPTION_DEPOSIT_MONEY)) {
-                String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
-                vm.makeDeposit(deposit);
-
-            } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                vm.getAvailableItems();
-                String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
-                if (!vm.selectProduct(productCode)) {
+                } else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
                     activeMenu = PURCHASE_MENU_OPTIONS;
+
+                } else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
+                    vm.exitDialog();
+                    run = false;
+
+                } else if (userChoice.equals(PURCHASE_MENU_OPTION_DEPOSIT_MONEY)) {
+                    String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
+                    vm.makeDeposit(deposit);
+
+                } else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+                    vm.getAvailableItems();
+                    String productCode = (String) menu.getChoiceFromOptions2(PURCHASE_MENU_OPTIONS);
+                    if (!vm.selectProduct(productCode)) {
+                        activeMenu = PURCHASE_MENU_OPTIONS;
+                    }
+                } else if (userChoice.equals(PURCHASE_MENU_OPTION_END_TRANSACTION)) {
+                    vm.closeBank();
+                    activeMenu = MAIN_MENU_OPTIONS;
                 }
-            } else if (userChoice.equals(PURCHASE_MENU_OPTION_END_TRANSACTION)) {
-                vm.closeBank();
-                activeMenu = MAIN_MENU_OPTIONS;
+            }catch (VendingMachineExceptions vme){
+                System.out.println(vme.getMessage() + "\n");
             }
         }
     }
