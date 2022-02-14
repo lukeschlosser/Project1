@@ -55,9 +55,8 @@ public class VendingMachineTest {
     public void selectProductInvalidCode() { // this should fail
 
         String productCode = "A6";
-        boolean expected = false;
 
-        Assert.assertFalse(vm.selectProduct(productCode)); // updated by jen
+        Assert.assertFalse(vm.selectProduct(productCode));
     }
 
 
