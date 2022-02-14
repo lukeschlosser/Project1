@@ -37,15 +37,12 @@ public class Inventory {
     }
 
     private List<Item> getCSVList() {
-        String path = "vendingmachine.csv";
-        File itemFile = new File(path);
-        String[] itemData;
 
         inventoryList = new ArrayList();
-        try (Scanner input = new Scanner(itemFile)) {
+        try (Scanner input = new Scanner(new File("vendingmachine.csv"))) {
             while (input.hasNext()) {
                 String lineOfText = input.nextLine();
-                itemData = lineOfText.split("\\|");
+                String[] itemData = lineOfText.split("\\|");
                 Item item = new Item(itemData[0],
                         itemData[1],
                         Double.parseDouble(itemData[2]),
