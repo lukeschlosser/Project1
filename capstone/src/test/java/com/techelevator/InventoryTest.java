@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.*;
 
 public class InventoryTest {
@@ -21,7 +24,7 @@ public class InventoryTest {
     @Test
     public void searchInventoryOutOfRange(){ // this test fails
 
-        Item itemExpected = new Item("A6","Potato Noms", 3.05, "Chip");
+        Item itemExpected = new Item("A6","Potato Noms", new BigDecimal("3.05"), "Chip");
         Item productCode = inventory.searchInventory("A6");
 
         Assert.assertEquals(itemExpected, productCode);

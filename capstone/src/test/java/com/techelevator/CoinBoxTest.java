@@ -2,6 +2,9 @@ package com.techelevator;
 
 
 import org.junit.Test;
+
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.*;
 
 public class CoinBoxTest {
@@ -12,7 +15,7 @@ public class CoinBoxTest {
     @Test
     public void giveChangeTestNormalRange(){
 
-        doNothing().when(cB).giveChange(5.00);
+        doNothing().when(cB).giveChange(new BigDecimal("5.00"));
         verify(cB,times(1));
 
 

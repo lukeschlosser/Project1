@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -45,7 +46,7 @@ public class Inventory {
                 String[] itemData = lineOfText.split("\\|");
                 Item item = new Item(itemData[0],
                         itemData[1],
-                        Double.parseDouble(itemData[2]),
+                        new BigDecimal(itemData[2]).setScale(2), // change to BigDecimal
                         itemData[3]);
                 inventoryList.add(item);    // quantity = 5
             }

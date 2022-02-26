@@ -1,16 +1,18 @@
 package com.techelevator;
 
 
+import java.math.BigDecimal;
+
 public class Item{
 
     private String slotLocation;
     private String name;
-    private Double price;
+    private BigDecimal price;
     private String type;
     private int quantity;
 
 
-    public Item(String slotLocation, String name, Double price, String type) {
+    public Item(String slotLocation, String name, BigDecimal price, String type) {
         this.slotLocation = slotLocation;
         this.name = name;
         this.price = price;
@@ -22,7 +24,7 @@ public class Item{
         return name;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -38,5 +40,21 @@ public class Item{
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setSlotLocation(String slotLocation) {
+        this.slotLocation = slotLocation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
