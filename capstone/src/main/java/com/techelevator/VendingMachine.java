@@ -1,21 +1,26 @@
 package com.techelevator;
 
+import com.techelevator.dao.JdbcInvDao;
 import com.techelevator.exceptions.InsufficientFundsException;
 import com.techelevator.exceptions.InvalidSlotException;
 import com.techelevator.exceptions.SoldOutException;
+import com.techelevator.Product;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.*;
 
+//@Scope(value = "session")
+//@Component(value = "vendingMachine")
 public class VendingMachine {
 
+//    private JdbcInvDao jdbcInvDao;
     private Inventory inventory = new Inventory();
     private static Logger appLog = new Logger();
-    // private static final DecimalFormat df = new DecimalFormat("##.00");
-    private Map<String, String> soundMap;
     private BigDecimal balance;
+    private Map<String, String> soundMap;
 
     public VendingMachine() {
         this.balance = new BigDecimal("0").setScale(2);
@@ -23,13 +28,13 @@ public class VendingMachine {
     }
 
     public void listItems() {
-        List<Item> inventoryList = inventory.getInventoryList();
+        List<Product> inventoryList = inventory.getInventoryList();
 
-        for (Item item : inventoryList) {
-            if (item.getQuantity() == 0) {
-                System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + item.getPrice() + " SOLD OUT");
+        for (Product product : inventoryList) {
+            if (product.getQuantity() == 0) {
+                System.out.println(product.getSlotLocation() + " " + product.getName() + " $" + product.getPrice() + " SOLD OUT");
             } else {
-                System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + item.getPrice() + " " + item.getQuantity() + " out of 5 remaining");
+                System.out.println(product.getSlotLocation() + " " + product.getName() + " $" + product.getPrice() + " " + product.getQuantity() + " out of 5 remaining");
             }
         }
     }
@@ -50,19 +55,19 @@ public class VendingMachine {
 
     public void selectProduct(String productCode) throws InvalidSlotException, InsufficientFundsException, SoldOutException {
         String msg = "";
-        Item item = inventory.searchInventory(productCode);
-        if (item == null) {
+        Product product = inventory.searchInventory(productCode);
+        if (product == null) {
             throw new InvalidSlotException("An invalid product code. You must provide a valid product code.");
-        } else if (item.getQuantity() == 0) {
+        } else if (product.getQuantity() == 0) {
             throw new SoldOutException(productCode+" is sold out.");
         } else {
-            BigDecimal remaining = balance.subtract(item.getPrice()).setScale(2);
+            BigDecimal remaining = balance.subtract(product.getPrice()).setScale(2);
             if(remaining.signum()>=0) {
-                msg = item.getName() + " " + item.getSlotLocation() + " $" + balance + " $" + remaining;
+                msg = product.getName() + " " + product.getSlotLocation() + " $" + balance + " $" + remaining;
                 balance = remaining;    // update balance
-                inventory.updateInventory(item);   // update inventory
-                System.out.println(item.getName() + " $" + item.getPrice() + " remaining: $" + remaining);
-                System.out.println(soundMap.get(item.getType()));
+                inventory.updateInventory(product);   // update inventory
+                System.out.println(product.getName() + " $" + product.getPrice() + " remaining: $" + remaining);
+                System.out.println(soundMap.get(product.getType()));
             }else { throw new InsufficientFundsException("Insufficient Balance. Your balance is "+balance);}
         }
 
@@ -91,11 +96,11 @@ public class VendingMachine {
     }
 
     public void getAvailableItems() {
-        List<Item> inventoryList = inventory.getInventoryList();
+        List<Product> inventoryList = inventory.getInventoryList();
 
-        for (Item item : inventoryList) {
-            if (item.getQuantity() != 0) {
-                System.out.println(item.getSlotLocation() + " " + item.getName() + " $" + item.getPrice() + " " + item.getQuantity() + " out of 5 remaining");
+        for (Product product : inventoryList) {
+            if (product.getQuantity() != 0) {
+                System.out.println(product.getSlotLocation() + " " + product.getName() + " $" + product.getPrice() + " " + product.getQuantity() + " out of 5 remaining");
             }
         }
     }

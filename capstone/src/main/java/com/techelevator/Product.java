@@ -3,7 +3,7 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public class Item{
+public class Product {
 
     private String slotLocation;
     private String name;
@@ -11,8 +11,10 @@ public class Item{
     private String type;
     private int quantity;
 
+    public Product() {
+    }
 
-    public Item(String slotLocation, String name, BigDecimal price, String type) {
+    public Product(String slotLocation, String name, BigDecimal price, String type) {
         this.slotLocation = slotLocation;
         this.name = name;
         this.price = price;

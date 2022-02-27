@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import com.techelevator.Product;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -9,46 +11,46 @@ import java.util.Scanner;
 
 public class Inventory {
 
-    private List<Item> inventoryList;
+    private List<Product> inventoryList;
 
     public Inventory() {
         this.inventoryList = this.getCSVList();
     }
 
-    public List<Item> getInventoryList() {
+    public List<Product> getInventoryList() {
         return inventoryList;
     }
 
-    public Item searchInventory(String productCode) {
-        Item searchedItem = null;
-        for (Item item : inventoryList) {
-            if (item.getSlotLocation().equalsIgnoreCase(productCode)) {
-                searchedItem = item;
+    public Product searchInventory(String productCode) {
+        Product searchedProduct = null;
+        for (Product product : inventoryList) {
+            if (product.getSlotLocation().equalsIgnoreCase(productCode)) {
+                searchedProduct = product;
             }
         }
-        return searchedItem;
+        return searchedProduct;
     }
 
-    public void updateInventory(Item itemUpdated) {
-        for (Item item : inventoryList) {
-            if (item.getSlotLocation().equals(itemUpdated.getSlotLocation())) {
-                item.setQuantity(item.getQuantity() - 1);
+    public void updateInventory(Product productUpdated) {
+        for (Product product : inventoryList) {
+            if (product.getSlotLocation().equals(productUpdated.getSlotLocation())) {
+                product.setQuantity(product.getQuantity() - 1);
             }
         }
     }
 
-    private List<Item> getCSVList() {
+    private List<Product> getCSVList() {
 
         inventoryList = new ArrayList();
         try (Scanner input = new Scanner(new File("vendingmachine.csv"))) {
             while (input.hasNext()) {
                 String lineOfText = input.nextLine();
                 String[] itemData = lineOfText.split("\\|");
-                Item item = new Item(itemData[0],
+                Product product = new Product(itemData[0],
                         itemData[1],
                         new BigDecimal(itemData[2]).setScale(2), // change to BigDecimal
                         itemData[3]);
-                inventoryList.add(item);    // quantity = 5
+                inventoryList.add(product);    // quantity = 5
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -7,7 +7,7 @@ with everyone's bank accounts, allowing customers to purchase products from thei
 ### Application Requirements
 
 1. The vending machine dispenses beverages, candy, chips, and gum.
-   - Each vending machine item has a Name and a Price.
+   - Each vending machine product has a Name and a Price.
 2. A main menu must display when the software runs, presenting the following options:
     > ```
     > (1) Display Vending Machine Items
@@ -40,13 +40,13 @@ process menu:
     2. Selecting "(2) Select Product" allows the customer to select a product to
     purchase.
         - Show the list of products available and allow the customer to enter
-        a code to select an item.
+        a code to select an product.
         - If the product code does not exist, the customer is informed and returned
         to the Purchase menu.
         - If a product is sold out, the customer is informed and returned to the
         Purchase menu.
         - If a valid product is selected, it is dispensed to the customer.
-        - Dispensing an item prints the item name, cost, and the money
+        - Dispensing an product prints the product name, cost, and the money
         remaining. Dispensing also returns a message:
           - All chip items print "Crunch Crunch, Yum!"
           - All candy items print "Munch Munch, Yum!"
