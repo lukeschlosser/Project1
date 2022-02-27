@@ -76,6 +76,6 @@ public class JdbcInvDao implements InventoryDao{
         pd.setPrice(results.getBigDecimal("price").setScale(2));
         pd.setType(results.getString("type"));
         pd.setQuantity(results.getInt("quantity"));
-        return null;
+        return pd;
     }
 }
